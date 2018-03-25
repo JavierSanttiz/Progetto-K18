@@ -6,6 +6,9 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
 
 import java.util.function.BiFunction;
 
+/**
+ * Represents the following function: z(f(x), g(x)) = f(x) / g(x)
+ */
 public final class Div extends BinaryMathFunction {
     private static final BiFunction<Double, Double, Double> f = (x, y) -> x / y;
 

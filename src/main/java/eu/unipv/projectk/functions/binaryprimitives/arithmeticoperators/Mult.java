@@ -5,6 +5,9 @@ import eu.unipv.projectk.functions.binaryprimitives.BinaryMathFunction;
 
 import java.util.function.BiFunction;
 
+/**
+ * Represents the following function: z(f(x), g(x)) = f(x) * g(x)
+ */
 public final class Mult extends BinaryMathFunction {
     private static final BiFunction<Double, Double, Double> f = (x, y) -> x * y;
 

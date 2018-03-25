@@ -7,6 +7,9 @@ import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Subtr;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
 
+/**
+ * Represents the following function: f(x) = tanh(g(x))
+ */
 public final class Tanh extends UnaryMathFunction {
 
     public Tanh(MathFunction argument) {

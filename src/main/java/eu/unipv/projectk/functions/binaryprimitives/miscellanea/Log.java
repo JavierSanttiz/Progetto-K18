@@ -8,6 +8,9 @@ import eu.unipv.projectk.functions.number.NumberFactory;
 
 import java.util.function.BiFunction;
 
+/**
+ * Represents the following function: z(base, f(x)) = log(base, f(x))
+ */
 public final class Log extends BinaryMathFunction {
     private static final BiFunction<Double, Double, Double> f = (base, n) -> Math.log(n) / Math.log(base);
 

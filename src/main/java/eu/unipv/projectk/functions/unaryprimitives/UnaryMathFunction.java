@@ -4,6 +4,10 @@ import eu.unipv.projectk.functions.MathFunction;
 
 import java.util.function.Function;
 
+/**
+ * Represents a function that takes one parameter and
+ * performs some calculations
+ */
 public abstract class UnaryMathFunction implements MathFunction {
     private final String symbol;
 

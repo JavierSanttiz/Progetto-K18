@@ -6,6 +6,9 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
 import java.util.function.Function;
 
+/**
+ * Represents the following function: f(x) = e ^ g(x)
+ */
 public final class Exp extends UnaryMathFunction {
     private static final Function<Double, Double> f = x -> Math.pow(Math.E, x);
 

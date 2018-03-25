@@ -9,6 +9,9 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Sqr2;
 
+/**
+ * Represents the following function: f(x) = arcos(g(x))
+ */
 public final class Acos extends UnaryMathFunction {
 
     public Acos(MathFunction argument) {

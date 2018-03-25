@@ -4,6 +4,9 @@ import eu.unipv.projectk.functions.MathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
+/**
+ * Represents the following function: f(x) = sinh(g(x))
+ */
 public final class Sinh extends UnaryMathFunction {
 
     public Sinh(MathFunction argument) {

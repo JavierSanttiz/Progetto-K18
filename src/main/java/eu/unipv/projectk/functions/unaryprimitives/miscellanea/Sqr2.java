@@ -8,6 +8,9 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
 import java.util.function.Function;
 
+/**
+ * Represents the following function: f(x) = g(x) ^ (1 / 2)
+ */
 public final class Sqr2 extends UnaryMathFunction {
     private static final Function<Double, Double> f = x -> Math.pow(x, 1 / 2.0);
 

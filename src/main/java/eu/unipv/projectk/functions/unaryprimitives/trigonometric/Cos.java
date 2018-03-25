@@ -5,6 +5,9 @@ import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
+/**
+ * Represents the following function: f(x) = cos(g(x))
+ */
 public final class Cos extends UnaryMathFunction {
 
     public Cos(MathFunction argument) {

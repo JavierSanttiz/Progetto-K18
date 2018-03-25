@@ -6,6 +6,9 @@ import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
+/**
+ * Represents the following function: f(x) = ln(g(x)) (base e)
+ */
 public final class Ln extends UnaryMathFunction {
 
     public Ln(MathFunction argument) {

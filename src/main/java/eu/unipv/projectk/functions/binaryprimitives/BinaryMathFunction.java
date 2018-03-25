@@ -4,6 +4,10 @@ import eu.unipv.projectk.functions.MathFunction;
 
 import java.util.function.BiFunction;
 
+/**
+ * Represents a function that takes two parameters and
+ * performs some calculations
+ */
 public abstract class BinaryMathFunction implements MathFunction {
     private final String symbol;
 

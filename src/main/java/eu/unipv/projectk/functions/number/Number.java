@@ -2,6 +2,9 @@ package eu.unipv.projectk.functions.number;
 
 import eu.unipv.projectk.functions.MathFunction;
 
+/**
+ * Represents the following function: f(x) = n
+ */
 public class Number implements MathFunction {
     private final double n;
 
@@ -9,6 +12,10 @@ public class Number implements MathFunction {
         this.n = n;
     }
 
+    /**
+     * Get the value of n without using evaluate(double x).
+     * @return  the constant n
+     */
     public double getValue() {
         return n;
     }

@@ -8,6 +8,9 @@ import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
 
+/**
+ * Represents the following function: f(x) = atan(g(x))
+ */
 public final class Atan extends UnaryMathFunction {
 
     public Atan(MathFunction argument) {

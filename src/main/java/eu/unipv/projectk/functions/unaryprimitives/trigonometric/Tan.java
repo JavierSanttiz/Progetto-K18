@@ -7,6 +7,9 @@ import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
 
+/**
+ * Represents the following function: f(x) = tan(g(x))
+ */
 public final class Tan extends UnaryMathFunction {
 
     public Tan(MathFunction argument) {

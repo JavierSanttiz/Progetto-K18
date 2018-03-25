@@ -5,6 +5,9 @@ import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
+/**
+ * Represents the following function: f(x) = |g(x)|
+ */
 public final class Abs extends UnaryMathFunction {
 
     public Abs(MathFunction argument) {

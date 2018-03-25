@@ -8,6 +8,14 @@ import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.number.Number;
 
+/**
+ * <pre>
+ * Represents the following functions:
+ * z(n, f(x)) = n ^ f(x)
+ * z(f(x), n) = f(x) ^ n
+ * z(f(x), g(y)) = f(x) ^ g(x)
+ * </pre>
+ */
 public final class Pow extends BinaryMathFunction {
 
     public Pow(MathFunction argument1, MathFunction argument2) {

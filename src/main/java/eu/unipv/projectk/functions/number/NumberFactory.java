@@ -2,6 +2,9 @@ package eu.unipv.projectk.functions.number;
 
 import java.util.HashMap;
 
+/**
+ * Factory that produces Number instances.
+ */
 public class NumberFactory {
     public static final Number PI = new Pi();
     public static final Number E = new E();
@@ -9,10 +12,16 @@ public class NumberFactory {
     public static final Number MINUS_ONE = new Number(-1);
     public static final Number ZERO = new Number(0);
 
+    // Map used for caching values
     private static final HashMap<Double, Number> numberRegister = new HashMap<>();
 
+    // This class shouldn't be instantiated
     private NumberFactory() {}
 
+    /**
+     * @param n representing the Number instance to be returned
+     * @return  a number instance representing the given parameter
+     */
     public static Number valueOf(double n) {
         if (Double.compare(n, Math.PI) == 0) {
             return PI;

@@ -2,6 +2,9 @@ package eu.unipv.projectk.functions;
 
 import eu.unipv.projectk.functions.number.NumberFactory;
 
+/**
+ * Represents the following function: f(x) = x
+ */
 public final class Identity implements MathFunction {
 
     @Override
