@@ -15,6 +15,29 @@ public final class Subtr extends BinaryMathFunction {
         super(f, argument1, argument2, "-");
     }
 
+    /**
+     * Subtract an indefinite number of functions with a single method invocation
+     * @param args  a variable number of MathFunction(s)
+     * @return      the addition of the passed arguments
+     */
+    public static Subtr chain(MathFunction... args) {
+        if (args.length < 2) {
+            throw new AssertionError("Minimum number of parameters required: 2");
+        } else if (args.length == 2) {
+            return new Subtr(args[0], args[1]);
+        } else {
+            Add add = new Add(args[1], args[2]);
+
+            for (int i = 3; i < args.length; i++) {
+                add = new Add(add, args[i]);
+            }
+
+            Subtr subtr = new Subtr(args[0], add);
+
+            return subtr;
+        }
+    }
+
     @Override
     public MathFunction derivative() {
         return new Subtr(arg1.derivative(), arg2.derivative());

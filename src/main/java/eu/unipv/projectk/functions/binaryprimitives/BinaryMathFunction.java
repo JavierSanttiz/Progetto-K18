@@ -30,5 +30,4 @@ public abstract class BinaryMathFunction implements MathFunction {
     public String toString() {
         return "(" + arg1.toString() + " " + symbol + " " + arg2.toString() + ")";
     }
-
 }
