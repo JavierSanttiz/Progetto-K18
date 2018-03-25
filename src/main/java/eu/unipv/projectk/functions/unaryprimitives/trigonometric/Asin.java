@@ -4,6 +4,7 @@ import eu.unipv.projectk.functions.MathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Subtr;
+import eu.unipv.projectk.functions.number.Number;
 import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;

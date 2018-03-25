@@ -20,6 +20,6 @@ public final class Acos extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(new Mult(NumberFactory.MINUS_ONE, new Div(NumberFactory.ONE, new Sqr2(new Subtr(NumberFactory.ONE, new Pow2(arg))))), arg.derivative());
+        return new Mult(new Div(NumberFactory.MINUS_ONE, new Sqr2(new Subtr(NumberFactory.ONE, new Pow2(arg)))), arg.derivative());
     }
 }

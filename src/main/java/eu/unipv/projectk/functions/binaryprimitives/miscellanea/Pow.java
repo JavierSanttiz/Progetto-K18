@@ -7,6 +7,7 @@ import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.number.NumberFactory;
 import eu.unipv.projectk.functions.number.Number;
+import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Ln;
 
 /**
  * <pre>
@@ -27,11 +28,11 @@ public final class Pow extends BinaryMathFunction {
         if (arg1 instanceof MathFunction && arg2.getClass().equals(Number.class)) {
             Number n = NumberFactory.valueOf(((Number) arg2).getValue() - 1);
 
-            return new Mult(new Mult(arg2, new Pow(arg1, n)), arg1.derivative());
+            return Mult.chain(arg2, new Pow(arg1, n), arg1.derivative());
         } else if (arg1.getClass().equals(Number.class) && arg2 instanceof MathFunction) {
-            return new Mult(new Pow(NumberFactory.E, new Mult(arg2, new Log(NumberFactory.E, arg1))), new Log(NumberFactory.E, arg1));
+            return Mult.chain(new Pow(arg1, arg2), new Ln(arg1), arg2.derivative());
         } else {
-            return new Mult(new Pow(arg1, arg2), new Add(new Mult(arg2.derivative(), new Log(NumberFactory.E, arg1)), new Mult(arg2, new Div(arg1.derivative(), arg1))));
+            return new Mult(new Pow(arg1, arg2), new Add(new Mult(arg2.derivative(), new Ln(arg1)), new Div(new Mult(arg2, arg1.derivative()), arg1)));
         }
     }
 }

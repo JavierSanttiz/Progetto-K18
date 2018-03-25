@@ -11,6 +11,7 @@ public class NumberFactory {
     public static final Number ONE = new Number(1);
     public static final Number MINUS_ONE = new Number(-1);
     public static final Number ZERO = new Number(0);
+    public static final Number TWO = new Number(2);
 
     // Map used for caching values
     private static final HashMap<Double, Number> numberRegister = new HashMap<>();
@@ -33,6 +34,8 @@ public class NumberFactory {
             return MINUS_ONE;
         } else if (Double.compare(n, 0) == 0) {
             return ZERO;
+        } else if (Double.compare(n, 2) == 0) {
+            return TWO;
         } else {
             Number number = numberRegister.get(n);
 

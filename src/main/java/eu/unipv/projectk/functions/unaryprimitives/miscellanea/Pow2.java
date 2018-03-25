@@ -19,6 +19,6 @@ public final class Pow2 extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(new Mult(NumberFactory.valueOf(2), arg), arg.derivative());
+        return Mult.chain(NumberFactory.TWO, arg, arg.derivative());
     }
 }

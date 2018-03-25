@@ -5,6 +5,7 @@ import eu.unipv.projectk.functions.binaryprimitives.BinaryMathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
 import eu.unipv.projectk.functions.number.NumberFactory;
+import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Ln;
 
 import java.util.function.BiFunction;
 
@@ -20,6 +21,6 @@ public final class Log extends BinaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(new Div(NumberFactory.ONE, new Mult(arg2, new Log(NumberFactory.E, arg1))), arg2.derivative());
+        return new Div(arg2.derivative(), new Mult(new Ln(arg1), arg2));
     }
 }

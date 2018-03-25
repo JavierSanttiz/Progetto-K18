@@ -20,6 +20,6 @@ public final class Sqr2 extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(new Div(NumberFactory.ONE, new Mult(NumberFactory.valueOf(2), new Sqr2(arg))), arg.derivative());
+        return new Mult(NumberFactory.valueOf(1 / 2.0), new Div(arg.derivative(), new Sqr2(arg)));
     }
 }

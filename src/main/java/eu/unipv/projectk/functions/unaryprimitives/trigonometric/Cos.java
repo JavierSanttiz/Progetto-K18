@@ -16,6 +16,6 @@ public final class Cos extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(NumberFactory.MINUS_ONE, new Mult(new Sin(arg), arg.derivative()));
+        return Mult.chain(NumberFactory.MINUS_ONE, new Sin(arg), arg.derivative());
     }
 }
