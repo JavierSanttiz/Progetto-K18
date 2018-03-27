@@ -8,7 +8,7 @@ import eu.unipv.projectk.functions.MathFunction;
  *     Mind yourself! Number should be used when a
  *     function like f(x) = n is needed. If you have to
  *     represent numbers in functions other than f(x) = n
- *     use the Combo class.
+ *     use the KFPlusH class.
  * <b/>
  */
 public class Number implements MathFunction {

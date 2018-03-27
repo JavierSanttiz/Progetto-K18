@@ -2,8 +2,7 @@ package eu.unipv.projectk.functions.unaryprimitives.miscellanea;
 
 import eu.unipv.projectk.functions.MathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
-import eu.unipv.projectk.functions.number.NumberFactory;
+import eu.unipv.projectk.functions.miscellanea.KFPlusH;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
 import java.util.function.Function;
@@ -20,6 +19,6 @@ public final class Sqr2 extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(NumberFactory.valueOf(1 / 2.0), new Div(arg.derivative(), new Sqr2(arg)));
+        return new KFPlusH(1.0 / 2.0, new Div(arg.derivative(), new Sqr2(arg)));
     }
 }

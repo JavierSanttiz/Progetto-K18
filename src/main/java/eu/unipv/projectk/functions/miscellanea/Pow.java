@@ -5,8 +5,6 @@ import eu.unipv.projectk.functions.binaryprimitives.BinaryMathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Add;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
-import eu.unipv.projectk.functions.number.NumberFactory;
-import eu.unipv.projectk.functions.number.Number;
 import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Ln;
 
 import java.util.function.BiFunction;
@@ -44,7 +42,7 @@ public final class Pow implements MathFunction {
 
         @Override
         public MathFunction derivative() {
-            return new Mult(new Combo(Math.log(n), new Pow(n, arg)), arg.derivative());
+            return new Mult(new KFPlusH(Math.log(n), new Pow(n, arg)), arg.derivative());
         }
 
         @Override
@@ -72,7 +70,7 @@ public final class Pow implements MathFunction {
 
         @Override
         public MathFunction derivative() {
-            return new Mult(new Combo(n, new Pow(arg, n -1)), arg.derivative());
+            return new Mult(new KFPlusH(n, new Pow(arg, n -1)), arg.derivative());
         }
 
         @Override

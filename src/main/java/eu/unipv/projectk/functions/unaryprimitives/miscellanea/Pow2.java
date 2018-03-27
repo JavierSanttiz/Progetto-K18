@@ -2,7 +2,7 @@ package eu.unipv.projectk.functions.unaryprimitives.miscellanea;
 
 import eu.unipv.projectk.functions.MathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
-import eu.unipv.projectk.functions.number.NumberFactory;
+import eu.unipv.projectk.functions.miscellanea.KFPlusH;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
 import java.util.function.Function;
@@ -19,6 +19,6 @@ public final class Pow2 extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return Mult.chain(NumberFactory.TWO, arg, arg.derivative());
+        return new Mult(new KFPlusH(2, arg), arg.derivative());
     }
 }

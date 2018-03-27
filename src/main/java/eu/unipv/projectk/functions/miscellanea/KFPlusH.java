@@ -5,12 +5,12 @@ import eu.unipv.projectk.functions.MathFunction;
 /**
  * Represents the following function: f(x) = k * g(x) + Σ(h)
  */
-public final class Combo implements MathFunction {
+public final class KFPlusH implements MathFunction {
     private MathFunction arg;
     private double mlt;
     private double add;
 
-    public Combo(double mlt, MathFunction arg, double... add) {
+    public KFPlusH(double mlt, MathFunction arg, double... add) {
         if (Double.compare(mlt, 0) == 0)
             throw new AssertionError("mlt = " + 0);
 
@@ -27,10 +27,9 @@ public final class Combo implements MathFunction {
         return mlt * arg.evaluate(x) + add;
     }
 
-    // TODO: to be implemented
     @Override
     public MathFunction derivative() {
-        return new Combo(mlt, arg.derivative());
+        return new KFPlusH(mlt, arg.derivative());
     }
 
     @Override
