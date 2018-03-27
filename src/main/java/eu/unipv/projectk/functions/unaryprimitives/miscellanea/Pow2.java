@@ -14,11 +14,16 @@ public final class Pow2 extends UnaryMathFunction {
     private static final Function<Double, Double> f = x -> Math.pow(x, 2);
 
     public Pow2(MathFunction argument) {
-        super(f, argument, "pow2");
+        super(f, argument, "^ 2");
     }
 
     @Override
     public MathFunction derivative() {
         return new Mult(new KFPlusH(2, arg), arg.derivative());
+    }
+
+    @Override
+    public String toString() {
+        return "(" + arg + " " + symbol + ")";
     }
 }

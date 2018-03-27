@@ -9,7 +9,7 @@ import java.util.function.Function;
  * performs some calculations
  */
 public abstract class UnaryMathFunction implements MathFunction {
-    private final String symbol;
+    protected final String symbol;
 
     private final Function<Double, Double> f;
     protected final MathFunction arg;

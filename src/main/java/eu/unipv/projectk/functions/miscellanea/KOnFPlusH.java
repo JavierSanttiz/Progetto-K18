@@ -31,7 +31,7 @@ public class KOnFPlusH implements MathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new KOnFPlusH(-div, new Div(arg.derivative(), new Pow2(arg)));
+        return new KFPlusH(-div, new Div(arg.derivative(), new Pow2(arg)));
     }
 
 
