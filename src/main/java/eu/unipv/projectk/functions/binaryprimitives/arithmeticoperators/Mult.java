@@ -11,8 +11,13 @@ import java.util.function.BiFunction;
 public final class Mult extends BinaryMathFunction {
     private static final BiFunction<Double, Double, Double> f = (x, y) -> x * y;
 
-    public Mult(MathFunction argument1, MathFunction argument2) {
-        super(f, argument1, argument2, "*");
+    /**
+     * z(f(x), g(x)) = f(x) * g(x)
+     * @param arg1 f(x)
+     * @param arg2 g(x)
+     */
+    public Mult(MathFunction arg1, MathFunction arg2) {
+        super(f, arg1, arg2, "*");
     }
 
     /**

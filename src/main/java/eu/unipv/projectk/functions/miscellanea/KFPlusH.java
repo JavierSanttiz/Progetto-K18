@@ -10,6 +10,12 @@ public final class KFPlusH implements MathFunction {
     private double mlt;
     private double add;
 
+    /**
+     * f(x) = k * g(x) + Σ(h)
+     * @param mlt   k
+     * @param arg   g(x)
+     * @param add   Σ(h)
+     */
     public KFPlusH(double mlt, MathFunction arg, double... add) {
         if (Double.compare(mlt, 0) == 0)
             throw new AssertionError("mlt = " + 0);

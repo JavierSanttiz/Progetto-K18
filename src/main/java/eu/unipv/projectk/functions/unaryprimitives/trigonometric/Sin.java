@@ -9,8 +9,12 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
  */
 public final class Sin extends UnaryMathFunction {
 
-    public Sin(MathFunction argument) {
-        super(Math::sin, argument, "sin");
+    /**
+     * f(x) = sin(g(x))
+     * @param arg  g(x)
+     */
+    public Sin(MathFunction arg) {
+        super(Math::sin, arg, "sin");
     }
 
     @Override

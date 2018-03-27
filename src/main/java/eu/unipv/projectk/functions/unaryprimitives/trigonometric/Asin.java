@@ -13,8 +13,12 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Sqr2;
  */
 public final class Asin extends UnaryMathFunction {
 
-    public Asin(MathFunction argument) {
-        super(Math::asin, argument, "asin");
+    /**
+     * f(x) = asin(g(x))
+     * @param arg  g(x)
+     */
+    public Asin(MathFunction arg) {
+        super(Math::asin, arg, "asin");
     }
 
     @Override

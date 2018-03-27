@@ -13,8 +13,12 @@ import java.util.function.Function;
 public final class Pow2 extends UnaryMathFunction {
     private static final Function<Double, Double> f = x -> Math.pow(x, 2);
 
-    public Pow2(MathFunction argument) {
-        super(f, argument, "^ 2");
+    /**
+     * f(x) = g(x) ^ 2
+     * @param arg  g(x)
+     */
+    public Pow2(MathFunction arg) {
+        super(f, arg, "^ 2");
     }
 
     @Override

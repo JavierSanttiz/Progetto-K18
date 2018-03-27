@@ -11,8 +11,12 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
  */
 public final class Tan extends UnaryMathFunction {
 
-    public Tan(MathFunction argument) {
-        super(Math::tan, argument, "tan");
+    /**
+     * f(x) = tan(g(x))
+     * @param arg  g(x)
+     */
+    public Tan(MathFunction arg) {
+        super(Math::tan, arg, "tan");
     }
 
     @Override

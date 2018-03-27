@@ -9,8 +9,12 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
  */
 public final class Sinh extends UnaryMathFunction {
 
-    public Sinh(MathFunction argument) {
-        super(Math::sinh, argument, "sinh");
+    /**
+     * f(x) = sinh(g(x))
+     * @param arg  g(x)
+     */
+    public Sinh(MathFunction arg) {
+        super(Math::sinh, arg, "sinh");
     }
 
     @Override

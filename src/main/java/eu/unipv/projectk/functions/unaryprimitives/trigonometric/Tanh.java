@@ -11,8 +11,12 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
  */
 public final class Tanh extends UnaryMathFunction {
 
-    public Tanh(MathFunction argument) {
-        super(Math::tanh, argument, "tanh");
+    /**
+     * f(x) = tanh(g(x))
+     * @param arg  g(x)
+     */
+    public Tanh(MathFunction arg) {
+        super(Math::tanh, arg, "tanh");
     }
 
     @Override

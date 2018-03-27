@@ -12,8 +12,12 @@ import java.util.function.Function;
 public final class Exp extends UnaryMathFunction {
     private static final Function<Double, Double> f = x -> Math.pow(Math.E, x);
 
-    public Exp(MathFunction argument) {
-        super(f, argument,  "e ^");
+    /**
+     * f(x) = e ^ g(x)
+     * @param arg  g(x)
+     */
+    public Exp(MathFunction arg) {
+        super(f, arg,  "e ^");
     }
 
     @Override

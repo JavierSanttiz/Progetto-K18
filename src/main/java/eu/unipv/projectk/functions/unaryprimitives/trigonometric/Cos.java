@@ -10,8 +10,12 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
  */
 public final class Cos extends UnaryMathFunction {
 
-    public Cos(MathFunction argument) {
-        super(Math::cos, argument, "cos");
+    /**
+     * f(x) = cos(g(x))
+     * @param arg  g(x)
+     */
+    public Cos(MathFunction arg) {
+        super(Math::cos, arg, "cos");
     }
 
     @Override

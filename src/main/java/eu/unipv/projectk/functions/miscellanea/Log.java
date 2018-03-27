@@ -14,6 +14,11 @@ public final class Log implements MathFunction {
     private double base;
     private MathFunction arg;
 
+    /**
+     * f(x)) = log(base, f(x))
+     * @param base  logarithm base
+     * @param arg   logarithm argument
+     */
     public Log(double base, MathFunction arg) {
         this.base = base;
         this.arg = arg;

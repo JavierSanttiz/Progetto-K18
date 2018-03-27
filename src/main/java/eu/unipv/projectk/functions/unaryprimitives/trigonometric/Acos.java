@@ -13,8 +13,12 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Sqr2;
  */
 public final class Acos extends UnaryMathFunction {
 
-    public Acos(MathFunction argument) {
-        super(Math::acos, argument, "acos");
+    /**
+     * f(x) = arcos(g(x))
+     * @param arg  g(x)
+     */
+    public Acos(MathFunction arg) {
+        super(Math::acos, arg, "acos");
     }
 
     @Override

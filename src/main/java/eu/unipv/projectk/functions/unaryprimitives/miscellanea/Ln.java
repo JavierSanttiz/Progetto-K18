@@ -9,8 +9,12 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
  */
 public final class Ln extends UnaryMathFunction {
 
-    public Ln(MathFunction argument) {
-        super(Math::log, argument, "ln");
+    /**
+     * f(x) = ln(g(x))
+     * @param arg  g(x)
+     */
+    public Ln(MathFunction arg) {
+        super(Math::log, arg, "ln");
     }
 
     @Override

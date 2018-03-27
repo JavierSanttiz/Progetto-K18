@@ -13,8 +13,12 @@ import java.util.function.Function;
 public final class Sqr2 extends UnaryMathFunction {
     private static final Function<Double, Double> f = x -> Math.pow(x, 1 / 2.0);
 
-    public Sqr2(MathFunction argument) {
-        super(f, argument, "sqr2");
+    /**
+     * f(x) = g(x) ^ (1 / 2)
+     * @param arg  g(x)
+     */
+    public Sqr2(MathFunction arg) {
+        super(f, arg, "sqr2");
     }
 
     @Override

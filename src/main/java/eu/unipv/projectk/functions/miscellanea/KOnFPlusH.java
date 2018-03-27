@@ -12,6 +12,12 @@ public class KOnFPlusH implements MathFunction {
     private double div;
     private double add;
 
+    /**
+     * f(x) = (k / g(x)) + Σ(h)
+     * @param div   k
+     * @param arg   g(x)
+     * @param add   Σ(h)
+     */
     public KOnFPlusH(double div, MathFunction arg, double... add) {
         if (Double.compare(div, 0) == 0)
             throw new AssertionError("div = " + div);

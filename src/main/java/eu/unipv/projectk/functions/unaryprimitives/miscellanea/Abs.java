@@ -10,8 +10,13 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
  */
 public final class Abs extends UnaryMathFunction {
 
-    public Abs(MathFunction argument) {
-        super(Math::abs, argument, "abs");
+    /**
+     * f(x) = |g(x)|<br>
+     * f(x) = abs(g(x))
+     * @param arg  g(x)
+     */
+    public Abs(MathFunction arg) {
+        super(Math::abs, arg, "abs");
     }
 
     @Override

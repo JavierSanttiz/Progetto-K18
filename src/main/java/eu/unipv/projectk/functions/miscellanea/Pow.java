@@ -11,11 +11,11 @@ import java.util.function.BiFunction;
 
 /**
  * Represents the following functions:
- * <pre>
- * z(n, f(x)) = n ^ f(x)
- * z(f(x), n) = f(x) ^ n
- * z(f(x), g(x)) = f(x) ^ g(x)
- * </pre>
+ * <ol>
+ * <li>z(n, f(x)) = n ^ f(x)
+ * <li>z(f(x), n) = f(x) ^ n
+ * <li>z(f(x), g(x)) = f(x) ^ g(x)
+ * </ol>
  */
 public final class Pow implements MathFunction {
     private static final BiFunction<Double, Double, Double> f = Math::pow;
@@ -94,14 +94,29 @@ public final class Pow implements MathFunction {
         }
     }
 
+    /**
+     * f(x) = n ^ g(x)
+     * @param n     constant number
+     * @param arg   g(x)
+     */
     public Pow(double n, MathFunction arg) {
         mathFunction = new NPowF(n, arg);
     }
 
+    /**
+     * f(x) = g(x) ^ n
+     * @param arg   g(x)
+     * @param n     constant number
+     */
     public Pow(MathFunction arg, double n) {
         mathFunction = new FPowN(arg, n);
     }
 
+    /**
+     * z(f(x), g(x)) = f(x) ^ g(x)
+     * @param arg1  f(x)
+     * @param arg2  g(x)
+     */
     public Pow(MathFunction arg1, MathFunction arg2) {
         mathFunction = new FPowF(arg1, arg2);
     }

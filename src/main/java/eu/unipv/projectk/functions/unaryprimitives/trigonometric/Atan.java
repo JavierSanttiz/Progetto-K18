@@ -12,8 +12,12 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
  */
 public final class Atan extends UnaryMathFunction {
 
-    public Atan(MathFunction argument) {
-        super(Math::atan, argument, "atan");
+    /**
+     * f(x) = atan(g(x))
+     * @param arg  g(x)
+     */
+    public Atan(MathFunction arg) {
+        super(Math::atan, arg, "atan");
     }
 
     @Override

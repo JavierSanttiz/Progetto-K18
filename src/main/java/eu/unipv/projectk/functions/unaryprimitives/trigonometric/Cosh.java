@@ -9,8 +9,12 @@ import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
  */
 public final class Cosh extends UnaryMathFunction {
 
-    public Cosh(MathFunction argument) {
-        super(Math::cosh, argument, "cosh");
+    /**
+     * f(x) = cosh(g(x))
+     * @param arg  g(x)
+     */
+    public Cosh(MathFunction arg) {
+        super(Math::cosh, arg, "cosh");
     }
 
     @Override

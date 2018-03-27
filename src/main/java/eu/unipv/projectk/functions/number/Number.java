@@ -14,6 +14,10 @@ import eu.unipv.projectk.functions.MathFunction;
 public class Number implements MathFunction {
     private final double n;
 
+    /**
+     * f(x) = n
+     * @param n constant number
+     */
     Number(double n) {
         this.n = n;
     }
