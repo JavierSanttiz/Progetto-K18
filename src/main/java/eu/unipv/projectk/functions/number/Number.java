@@ -4,6 +4,12 @@ import eu.unipv.projectk.functions.MathFunction;
 
 /**
  * Represents the following function: f(x) = n
+ * <b>
+ *     Mind yourself! Number should be used when a
+ *     function like f(x) = n is needed. If you have to
+ *     represent numbers in functions other than f(x) = n
+ *     use the Combo class.
+ * <b/>
  */
 public class Number implements MathFunction {
     private final double n;

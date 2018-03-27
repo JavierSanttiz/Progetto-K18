@@ -12,8 +12,8 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Ln;
 import java.util.function.BiFunction;
 
 /**
- * <pre>
  * Represents the following functions:
+ * <pre>
  * z(n, f(x)) = n ^ f(x)
  * z(f(x), n) = f(x) ^ n
  * z(f(x), g(x)) = f(x) ^ g(x)
@@ -32,7 +32,7 @@ public final class Pow implements MathFunction {
         private final double n;
         private final MathFunction arg;
 
-        public NPowF(double n, MathFunction arg) {
+        NPowF(double n, MathFunction arg) {
             this.n = n;
             this.arg = arg;
         }
@@ -46,6 +46,11 @@ public final class Pow implements MathFunction {
         public MathFunction derivative() {
             return new Mult(new Combo(Math.log(n), new Pow(n, arg)), arg.derivative());
         }
+
+        @Override
+        public String toString() {
+            return n + " " + symbol + " " + arg.toString();
+        }
     }
 
     /**
@@ -55,7 +60,7 @@ public final class Pow implements MathFunction {
         private final MathFunction arg;
         private final double n;
 
-        public FPowN(MathFunction arg, double n) {
+        FPowN(MathFunction arg, double n) {
             this.arg = arg;
             this.n = n;
         }
@@ -69,6 +74,11 @@ public final class Pow implements MathFunction {
         public MathFunction derivative() {
             return new Mult(new Combo(n, new Pow(arg, n -1)), arg.derivative());
         }
+
+        @Override
+        public String toString() {
+            return arg + " " + symbol + " " + n;
+        }
     }
 
     /**
@@ -76,7 +86,7 @@ public final class Pow implements MathFunction {
      */
     private final class FPowF extends BinaryMathFunction {
 
-        public FPowF(MathFunction arg1, MathFunction arg2) {
+        FPowF(MathFunction arg1, MathFunction arg2) {
             super(Math::pow, arg1, arg2, symbol);
         }
 
@@ -106,5 +116,10 @@ public final class Pow implements MathFunction {
     @Override
     public MathFunction derivative() {
         return mathFunction.derivative();
+    }
+
+    @Override
+    public String toString() {
+        return mathFunction.toString();
     }
 }
