@@ -2,7 +2,7 @@ package eu.unipv.projectk.functions.unaryprimitives.trigonometric;
 
 import eu.unipv.projectk.functions.MathFunction;
 import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
-import eu.unipv.projectk.functions.number.NumberFactory;
+import eu.unipv.projectk.functions.miscellanea.KFPlusH;
 import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
 
 /**
@@ -16,6 +16,6 @@ public final class Cos extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return Mult.chain(NumberFactory.MINUS_ONE, new Sin(arg), arg.derivative());
+        return new Mult(new KFPlusH(-1, new Sin(arg)), arg.derivative());
     }
 }
