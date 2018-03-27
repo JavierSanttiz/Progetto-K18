@@ -5,7 +5,14 @@ import eu.unipv.projectk.functions.number.NumberFactory;
 /**
  * Represents the following function: f(x) = x
  */
-public final class Identity implements MathFunction {
+public enum Identity implements MathFunction {
+    X("x");
+
+    private String symbol;
+
+    Identity(String symbol) {
+        this.symbol = symbol;
+    }
 
     @Override
     public double evaluate(double x) {
@@ -19,6 +26,6 @@ public final class Identity implements MathFunction {
 
     @Override
     public String toString() {
-        return "x";
-    };
+        return symbol;
+    }
 }
