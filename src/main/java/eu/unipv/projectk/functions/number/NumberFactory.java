@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Factory that produces Number instances.
  */
-public class NumberFactory {
+public final class NumberFactory {
     public static final Number PI = new Pi();
     public static final Number E = new E();
     public static final Number ONE = new Number(1);

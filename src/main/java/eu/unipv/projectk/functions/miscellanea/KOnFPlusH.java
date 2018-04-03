@@ -7,7 +7,7 @@ import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Pow2;
 /**
  * Represents the following function: f(x) = (k / g(x)) + Σ(h)
  */
-public class KOnFPlusH implements MathFunction {
+public final class KOnFPlusH implements MathFunction {
     private MathFunction arg;
     private double div;
     private double add;
