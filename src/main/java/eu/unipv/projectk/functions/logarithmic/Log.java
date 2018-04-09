@@ -1,7 +1,8 @@
-package eu.unipv.projectk.functions.miscellanea;
+package eu.unipv.projectk.functions.logarithmic;
 
 import eu.unipv.projectk.functions.MathFunction;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
+import eu.unipv.projectk.functions.arithmetic.Div;
+import eu.unipv.projectk.functions.arithmetic.Mlt;
 
 import java.util.function.BiFunction;
 
@@ -31,7 +32,7 @@ public final class Log implements MathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Div(arg.derivative(), new KFPlusH(Math.log(base), arg));
+        return new Div(arg.derivative(), new Mlt(Math.log(base), arg));
     }
 
     @Override

@@ -1,8 +1,8 @@
-package eu.unipv.projectk.functions.unaryprimitives.trigonometric;
+package eu.unipv.projectk.functions.trigonometric;
 
 import eu.unipv.projectk.functions.MathFunction;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
-import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
+import eu.unipv.projectk.functions.UnaryMathFunction;
+import eu.unipv.projectk.functions.arithmetic.Mlt;
 
 /**
  * Represents the following function: f(x) = sinh(g(x))
@@ -19,6 +19,6 @@ public final class Sinh extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new Mult(new Cosh(arg), arg.derivative());
+        return new Mlt(new Cosh(arg), arg.derivative());
     }
 }

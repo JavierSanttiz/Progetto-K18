@@ -1,9 +1,9 @@
-package eu.unipv.projectk.functions.unaryprimitives.miscellanea;
+package eu.unipv.projectk.functions.miscellanea;
 
 import eu.unipv.projectk.functions.MathFunction;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
-import eu.unipv.projectk.functions.miscellanea.KFPlusH;
-import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
+import eu.unipv.projectk.functions.UnaryMathFunction;
+import eu.unipv.projectk.functions.arithmetic.Div;
+import eu.unipv.projectk.functions.arithmetic.Mlt;
 
 import java.util.function.Function;
 
@@ -23,6 +23,6 @@ public final class Sqr2 extends UnaryMathFunction {
 
     @Override
     public MathFunction derivative() {
-        return new KFPlusH(1.0 / 2.0, new Div(arg.derivative(), new Sqr2(arg)));
+        return new Div(arg.derivative(), new Mlt(2, new Sqr2(arg)));
     }
 }

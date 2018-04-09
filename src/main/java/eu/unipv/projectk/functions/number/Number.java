@@ -3,45 +3,30 @@ package eu.unipv.projectk.functions.number;
 import eu.unipv.projectk.functions.MathFunction;
 
 /**
- * Represents the following function: f(x) = n
- * <b>
- *     Mind yourself! Number should be used when a
- *     function like f(x) = n is needed. If you have to
- *     represent numbers in functions other than f(x) = n
- *     use the KFPlusH class.
- * <b/>
+ * Represents the following function: f(x) = k
  */
-public class Number implements MathFunction {
-    private final double n;
+public enum Number implements MathFunction {
+    ZERO(0.0),
+    ONE(1.0);
 
-    /**
-     * f(x) = n
-     * @param n constant number
-     */
-    Number(double n) {
-        this.n = n;
-    }
+    private double value;
 
-    /**
-     * Get the value of n without using evaluate(double x).
-     * @return  the constant n
-     */
-    public double getValue() {
-        return n;
+    Number(double value) {
+        this.value = value;
     }
 
     @Override
     public double evaluate(double x) {
-        return n;
+        return value;
     }
 
     @Override
     public MathFunction derivative() {
-        return new Number(0);
+        return Number.ZERO;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(n);
+        return String.valueOf(value);
     }
 }

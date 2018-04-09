@@ -1,11 +1,11 @@
 package eu.unipv.projectk.functions.miscellanea;
 
+import eu.unipv.projectk.functions.BinaryMathFunction;
 import eu.unipv.projectk.functions.MathFunction;
-import eu.unipv.projectk.functions.binaryprimitives.BinaryMathFunction;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Add;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Mult;
-import eu.unipv.projectk.functions.unaryprimitives.miscellanea.Ln;
+import eu.unipv.projectk.functions.arithmetic.Add;
+import eu.unipv.projectk.functions.arithmetic.Div;
+import eu.unipv.projectk.functions.arithmetic.Mlt;
+import eu.unipv.projectk.functions.logarithmic.Ln;
 
 import java.util.function.BiFunction;
 
@@ -42,7 +42,7 @@ public final class Pow implements MathFunction {
 
         @Override
         public MathFunction derivative() {
-            return new Mult(new KFPlusH(Math.log(n), new Pow(n, arg)), arg.derivative());
+            return new Mlt(new Mlt(Math.log(n), new Pow(n, arg)), arg.derivative());
         }
 
         @Override
@@ -70,7 +70,7 @@ public final class Pow implements MathFunction {
 
         @Override
         public MathFunction derivative() {
-            return new Mult(new KFPlusH(n, new Pow(arg, n -1)), arg.derivative());
+            return new Mlt(n, new Pow(arg, n - 1), arg.derivative());
         }
 
         @Override
@@ -90,7 +90,7 @@ public final class Pow implements MathFunction {
 
         @Override
         public MathFunction derivative() {
-            return new Mult(new Pow(arg1, arg2), new Add(new Mult(arg2.derivative(), new Ln(arg1)), new Div(new Mult(arg2, arg1.derivative()), arg1)));
+            return new Mlt(new Pow(arg1, arg2), new Add(new Div(new Mlt(arg1.derivative(), arg2), arg1), new Mlt(new Ln(arg1), arg2.derivative())));
         }
     }
 

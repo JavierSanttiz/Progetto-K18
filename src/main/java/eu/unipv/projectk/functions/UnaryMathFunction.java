@@ -1,6 +1,4 @@
-package eu.unipv.projectk.functions.unaryprimitives;
-
-import eu.unipv.projectk.functions.MathFunction;
+package eu.unipv.projectk.functions;
 
 import java.util.function.Function;
 
@@ -29,5 +27,4 @@ public abstract class UnaryMathFunction implements MathFunction {
     public String toString() {
         return symbol + "(" + arg.toString() + ")";
     }
-
 }

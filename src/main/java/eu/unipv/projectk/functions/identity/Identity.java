@@ -1,6 +1,7 @@
-package eu.unipv.projectk.functions;
+package eu.unipv.projectk.functions.identity;
 
-import eu.unipv.projectk.functions.number.NumberFactory;
+import eu.unipv.projectk.functions.MathFunction;
+import eu.unipv.projectk.functions.number.Number;
 
 /**
  * Represents the following function: f(x) = x
@@ -21,7 +22,7 @@ public enum Identity implements MathFunction {
 
     @Override
     public MathFunction derivative() {
-        return NumberFactory.ONE;
+        return Number.ONE;
     }
 
     @Override

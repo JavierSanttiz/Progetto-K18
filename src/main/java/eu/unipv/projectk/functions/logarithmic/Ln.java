@@ -1,8 +1,8 @@
-package eu.unipv.projectk.functions.unaryprimitives.miscellanea;
+package eu.unipv.projectk.functions.logarithmic;
 
 import eu.unipv.projectk.functions.MathFunction;
-import eu.unipv.projectk.functions.binaryprimitives.arithmeticoperators.Div;
-import eu.unipv.projectk.functions.unaryprimitives.UnaryMathFunction;
+import eu.unipv.projectk.functions.UnaryMathFunction;
+import eu.unipv.projectk.functions.arithmetic.Div;
 
 /**
  * Represents the following function: f(x) = ln(g(x)) (base e)
