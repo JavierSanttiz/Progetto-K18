@@ -57,6 +57,11 @@ public final class Div implements MathFunction {
         return div.derivative();
     }
 
+    @Override
+    public String toString() {
+        return div.toString();
+    }
+
     /**
      * Represents the following function: z(f(x), g(x)) = f(x) / g(x)
      */

@@ -19,13 +19,18 @@ public final class Sub implements MathFunction {
      * @param args  all other optional arguments
      */
     public Sub(MathFunction arg0, MathFunction arg1, MathFunction... args) {
-        Add add = new Add(arg1, args[0]);
+        if (args.length > 0) {
 
-        for (int i = 1; i < args.length; i++) {
-            add = new Add(add, args[i]);
+            Add add = new Add(arg1, args[0]);
+
+            for (int i = 1; i < args.length; i++) {
+                add = new Add(add, args[i]);
+            }
+
+            sub = new BinarySubtraction(arg0, add);
+        } else {
+            sub = new BinarySubtraction(arg0, arg1);
         }
-
-        sub = new BinarySubtraction(arg0, add);
     }
 
     /**
@@ -54,6 +59,11 @@ public final class Sub implements MathFunction {
     @Override
     public MathFunction derivative() {
         return sub.derivative();
+    }
+
+    @Override
+    public String toString() {
+        return sub.toString();
     }
 
     /**

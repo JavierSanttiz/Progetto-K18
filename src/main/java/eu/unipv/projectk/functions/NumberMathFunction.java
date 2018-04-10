@@ -14,6 +14,6 @@ public abstract class NumberMathFunction implements MathFunction {
 
     @Override
     public String toString() {
-        return "(" + number + " + " + "(" + arg + ")" + ")";
+        return "(" + number + " " + symbol + " " + "(" + arg + ")" + ")";
     }
 }

@@ -36,7 +36,11 @@ public final class Add implements MathFunction {
      * @param args      all other optional arguments
      */
     public Add(double number, MathFunction arg0, MathFunction... args) {
-        add = new NumberAddition(number, new Add(arg0, args[0], Arrays.copyOfRange(args, 1, args.length)));
+        if (args.length > 0) {
+            add = new NumberAddition(number, new Add(arg0, args[0], Arrays.copyOfRange(args, 1, args.length)));
+        } else {
+            add = new NumberAddition(number, arg0);
+        }
     }
 
     @Override
@@ -47,6 +51,11 @@ public final class Add implements MathFunction {
     @Override
     public MathFunction derivative() {
         return add.derivative();
+    }
+
+    @Override
+    public String toString() {
+        return add.toString();
     }
 
     /**

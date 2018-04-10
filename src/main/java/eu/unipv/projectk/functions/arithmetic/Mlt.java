@@ -36,7 +36,11 @@ public final class Mlt implements MathFunction {
      * @param args      all other optional arguments
      */
     public Mlt(double number, MathFunction arg0, MathFunction... args) {
+        if (args.length > 0) {
             mlt = new NumberMultiplication(number, new Mlt(arg0, args[0], Arrays.copyOfRange(args, 1, args.length)));
+        } else {
+            mlt = new NumberMultiplication(number, arg0);
+        }
     }
 
     @Override
