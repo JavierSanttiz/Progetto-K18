@@ -1,15 +1,30 @@
 package eu.unipv.projectk;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
+import eu.unipv.projectk.functions.FooMathFunction;
 
-public class FunctionController {
-    private List<Function<Double, Double>> functions;
+import java.util.Arrays;
 
-    public FunctionController() {
-        functions = new ArrayList<>();
+public class FunctionManager {
+    private static final int STD_SIZE = 5;
+    private FooMathFunction functions[];
+    private int index, resizeCounter;
+
+    public FunctionManager() {
+        functions = new FooMathFunction[STD_SIZE];
+        index = 0;
+        resizeCounter = 1;
     }
 
-    public void add(Function<Double, Double> f)
+    public void add(FooMathFunction f) {
+        if (index >= STD_SIZE * resizeCounter) {
+            functions = Arrays.copyOf(functions, functions.length + STD_SIZE);
+            resizeCounter++;
+        }
+
+        functions[index++] = f;
+    }
+
+    public FooMathFunction[] getFunctions() {
+        return functions;
+    }
 }

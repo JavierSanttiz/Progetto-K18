@@ -1,23 +1,48 @@
 package eu.unipv.projectk;
 
+import eu.unipv.projectk.functions.FooMathFunction;
 import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-import java.util.function.Function;
+import java.util.Objects;
 
 public class CartesianPlane extends Pane {
+    private static final int STD_NUMBER_DENSITY = 100;
+    private static final double STD_TICK_DENSITY = 10;
+
+    private final FunctionManager functionManager;
+    private Group sheet;
+
     private final NumberAxis xAxis;
     private final NumberAxis yAxis;
 
-    public CartesianPlane(double xLow, double xHi, double yLow, double yHi) {
-        xAxis = new NumberAxis(-5, 5, 1);
+    private double axisTickDensity;
+    private int minPointsDensity;
+
+    public CartesianPlane(FunctionManager functionManager, double xLow, double xHi, double yLow, double yHi) {
+        this(functionManager, xLow, xHi, yLow, yHi, STD_TICK_DENSITY, STD_NUMBER_DENSITY);
+    }
+
+    public CartesianPlane(FunctionManager functionManager, double xLow, double xHi, double yLow, double yHi, double axisTickDensity, int minPointsDensity) {
+        if ((xLow > xHi) || (yLow > yHi)) {
+            throw new AssertionError("Low(s) must be less than Hi(s)");
+        }
+
+        this.functionManager = functionManager;
+        sheet = new Group();
+
+        this.axisTickDensity = axisTickDensity;
+        this.minPointsDensity = minPointsDensity;
+
+        xAxis = new NumberAxis(xLow, xHi, (xHi - xLow) / this.axisTickDensity);
         xAxis.setSide(Side.BOTTOM);
 
-        yAxis = new NumberAxis(-5, 5, 1);
+        yAxis = new NumberAxis(yLow, yHi, (yHi - yLow) / this.axisTickDensity);
         yAxis.setSide(Side.RIGHT);
 
         // Axis binding to pane
@@ -26,31 +51,43 @@ public class CartesianPlane extends Pane {
         yAxis.layoutXProperty().bind(widthProperty().divide(2));
         yAxis.prefHeightProperty().bind(heightProperty());
 
-        setOnMouseClicked(e -> {
-            System.out.println(mapToCartesianX(e.getX()) + " " + mapToCartesianY(e.getY()));
-        });
+        getChildren().addAll(xAxis, yAxis, sheet);
 
-        getChildren().addAll(xAxis, yAxis);
+        // TODO: implement zoom
+        // TODO: implement drag
+    }
+
+    @Override
+    public void resize(double v, double v1) {
+        super.resize(v, v1);
+        refresh();
+    }
+
+    public void addFunction(FooMathFunction f) {
+        functionManager.add(f);
     }
 
     public void plot(double x, double y) {
         Circle circle = new Circle(mapToPaneX(x), mapToPaneY(y), 4, Color.GREEN);
 
-        getChildren().add(circle);
+        sheet.getChildren().add(circle);
     }
 
-    public void plot(Function<Double, Double> f) {
-        int density = 50;
-        double step = (xAxis.getUpperBound() - yAxis.getLowerBound()) / density;
+    public void plot() {
+        for (FooMathFunction f : functionManager.getFunctions()) {
+            if (Objects.nonNull(f)) {
+                double step = (xAxis.getUpperBound() - yAxis.getLowerBound()) / minPointsDensity;
 
-        double previousX = xAxis.getLowerBound();
-        double previousY = f.apply(previousX);
+                double previousX = xAxis.getLowerBound();
+                double previousY = f.apply(previousX);
 
-        for (double x = previousX + step; x <= xAxis.getUpperBound(); x += step) {
-            plotSegment(previousX, previousY, x, f.apply(x), Color.RED);
+                for (double x = previousX + step; x <= xAxis.getUpperBound(); x += step) {
+                    plotSegment(previousX, previousY, x, f.apply(x), Color.RED);
 
-            previousX = x;
-            previousY = f.apply(x);
+                    previousX = x;
+                    previousY = f.apply(x);
+                }
+            }
         }
     }
 
@@ -59,7 +96,7 @@ public class CartesianPlane extends Pane {
         line.setStrokeWidth(2);
         line.setStroke(color);
 
-        getChildren().add(line);
+        sheet.getChildren().add(line);
     }
 
     private double mapToPaneX(double cartesianX) {
@@ -88,5 +125,12 @@ public class CartesianPlane extends Pane {
 
     private double getAxisRange(NumberAxis axis) {
         return axis.getUpperBound() - axis.getLowerBound();
+    }
+
+    private void refresh() {
+        getChildren().remove(sheet);
+        sheet = new Group();
+        getChildren().add(sheet);
+        plot();
     }
 }
