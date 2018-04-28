@@ -1,5 +1,6 @@
-package eu.unipv.projectk;
+package eu.unipv.projectk.ui;
 
+import eu.unipv.projectk.FunctionManager;
 import eu.unipv.projectk.functions.FooMathFunction;
 import javafx.geometry.Side;
 import javafx.scene.Group;
@@ -128,9 +129,7 @@ public class CartesianPlane extends Pane {
     }
 
     private void refresh() {
-        getChildren().remove(sheet);
-        sheet = new Group();
-        getChildren().add(sheet);
+        sheet.getChildren().clear();
         plot();
     }
 }

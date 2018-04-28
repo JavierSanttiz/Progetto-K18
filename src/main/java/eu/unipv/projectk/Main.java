@@ -1,5 +1,7 @@
 package eu.unipv.projectk;
 
+import eu.unipv.projectk.ui.CartesianPlane;
+import eu.unipv.projectk.ui.FunctionsInputPane;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         StackPane root = new StackPane();
 
         CartesianPlane plane = new CartesianPlane(new FunctionManager(), -5, 5, -5, 5);
@@ -18,10 +20,10 @@ public class Main extends Application {
 
         root.getChildren().addAll(plane, functionsInputPane);
 
-        plane.addFunction(Math::log);
+        plane.addFunction(Math::sin);
         plane.plot();
 
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("Plotter");
         primaryStage.setScene(scene);
         primaryStage.show();
