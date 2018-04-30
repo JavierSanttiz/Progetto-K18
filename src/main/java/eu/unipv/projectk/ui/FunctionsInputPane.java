@@ -1,7 +1,6 @@
 package eu.unipv.projectk.ui;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
@@ -22,7 +21,10 @@ public class FunctionsInputPane extends VBox {
         inputPaneGraphicInit();
 
         addFunction.setOnAction(e -> functions.getChildren().add(new FunctionSlot()));
-        hide.setOnAction(e -> hidden.set(true));
+        hide.setOnAction(e -> {
+            hidden.set(true);
+            setTranslateX(-getMaxWidth());
+        });
     }
 
     public boolean isHidden() {
@@ -84,7 +86,7 @@ public class FunctionsInputPane extends VBox {
 
         functionsScrollPane = new ScrollPane(functions);
         functionsScrollPane.getStyleClass().add("functions-scroll-pane");
-        JFXScrollPane.smoothScrolling(functionsScrollPane);
+        //JFXScrollPane.smoothScrolling(functionsScrollPane);
 
         setStyle(
                 "-fx-max-width: 410px;" +
