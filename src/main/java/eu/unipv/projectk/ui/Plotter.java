@@ -3,8 +3,10 @@ package eu.unipv.projectk.ui;
 import com.jfoenix.controls.JFXButton;
 import eu.unipv.projectk.FunctionManager;
 import eu.unipv.projectk.functions.FooMathFunction;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class Plotter extends StackPane {
     private final FunctionManager functionManager;
@@ -23,7 +25,9 @@ public class Plotter extends StackPane {
         show.visibleProperty().bindBidirectional(functionsInputPane.hiddenProperty());
         show.setOnAction(e -> {
             functionsInputPane.hiddenProperty().set(false);
-            functionsInputPane.setTranslateX(functionsInputPane.getMinWidth());
+            TranslateTransition t = new TranslateTransition(new Duration(250), functionsInputPane);
+            t.setToX(functionsInputPane.getMinWidth());
+            t.play();
         });
     }
 

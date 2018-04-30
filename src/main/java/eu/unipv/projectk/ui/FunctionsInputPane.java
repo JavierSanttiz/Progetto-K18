@@ -2,11 +2,13 @@ package eu.unipv.projectk.ui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 // TODO: fix error loading stylesheet
 public class FunctionsInputPane extends VBox {
@@ -22,8 +24,10 @@ public class FunctionsInputPane extends VBox {
 
         addFunction.setOnAction(e -> functions.getChildren().add(new FunctionSlot()));
         hide.setOnAction(e -> {
-            hidden.set(true);
-            setTranslateX(-getMaxWidth());
+            TranslateTransition t = new TranslateTransition(new Duration(250), this);
+            t.setToX(-getMaxWidth());
+            t.play();
+            t.setOnFinished(e1 -> hidden.set(true));
         });
     }
 
