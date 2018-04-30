@@ -108,9 +108,7 @@ public class FunctionsInputPane extends VBox {
     private class FunctionSlot extends HBox {
         private Label prompt;
         private JFXTextField functionInput;
-        private String derivativeText;
-        private JFXTextField derivativeInput;
-        private JFXButton derivative;
+        private DerivativeButton derivativeButton;
         private JFXButton delete;
 
         FunctionSlot() {
@@ -129,7 +127,8 @@ public class FunctionsInputPane extends VBox {
             prompt = new Label("f(x) = ");
             prompt.getStyleClass().add("prompt");
             prompt.setStyle(
-                    "-fx-font-size: 16px;"
+                    "-fx-font-size: 16px;" +
+                            "-fx-font-style: oblique;"
             );
 
             functionInput = new JFXTextField();
@@ -138,19 +137,7 @@ public class FunctionsInputPane extends VBox {
                     "-fx-pref-width: 165px;"
             );
 
-            derivativeText = " = n | Dⁿf";
-            derivativeInput = new JFXTextField("1");
-            derivativeInput.getStyleClass().add("derivative-input");
-            derivativeInput.setStyle(
-                    "-fx-max-width: 20px;" +
-                            "-fx-alignment: center-right;"
-            );
-
-            derivative = new JFXButton(derivativeText, derivativeInput);
-            derivative.getStyleClass().add("derivative");
-            derivative.setStyle(
-                    "-fx-background-color: #00bc00;"
-            );
+            derivativeButton = new DerivativeButton();
 
             delete = new JFXButton("X");
             delete.getStyleClass().add("delete");
@@ -163,13 +150,77 @@ public class FunctionsInputPane extends VBox {
                     "-fx-pref-height: 50px;" +
                             "-fx-alignment: center;" +
                             "-fx-padding: 0 0 0 2;" +
-                            "-fx-spacing: 10px;" +
+                            "-fx-spacing: 8px;" +
                             "-fx-border-style: solid;" +
                             "-fx-border-color: gray;" +
                             "-fx-border-width: 0px 0px 1px 0px;"
             );
 
-            getChildren().addAll(prompt, functionInput, derivative, delete);
+            getChildren().addAll(prompt, functionInput, derivativeButton, delete);
+        }
+
+        private class DerivativeButton extends HBox{
+            private int index;
+            private JFXButton increment, decrement;
+            private VBox modifier;
+            private JFXButton computeDerivative;
+            private Label indexLabel;
+
+            DerivativeButton() {
+                derivativeButtonGraphicInit();
+
+                increment.setOnAction(e -> indexLabel.setText(String.valueOf(++index)));
+                decrement.setOnAction(e -> {
+                    if (index <= 1) {
+                        // Do Nothing
+                    } else {
+                        indexLabel.setText(String.valueOf(--index));
+                    }
+                });
+            }
+
+            void derivativeButtonGraphicInit() {
+                index = 1;
+
+                increment = new JFXButton("▴");
+                increment.getStyleClass().add("increment");
+
+                decrement = new JFXButton("▾");
+                decrement.getStyleClass().add("decrement");
+
+                modifier = new VBox(increment, decrement);
+                modifier.getStyleClass().add("modifier");
+                modifier.setStyle(
+                        "-fx-alignment: center;" +
+                                "-fx-border-color: darkgreen;" +
+                                "-fx-border-style: solid;" +
+                                "-fx-border-width: 0px, 0px, 0px, 1px;"
+                );
+
+                computeDerivative = new JFXButton("Dⁿf ");
+                computeDerivative.getStyleClass().add("comput-derivative");
+                computeDerivative.setStyle(
+                        "-fx-pref-height: 50px;"
+                );
+
+                indexLabel = new Label(String.valueOf(index));
+                indexLabel.getStyleClass().add("index-label");
+                indexLabel.setStyle(
+                        "-fx-font-weight: bold;"
+                );
+
+                getStyleClass().add("derivative-button");
+                setStyle(
+                        "-fx-alignment: center;" +
+                                "-fx-background-color: green;" +
+                                "-fx-border-radius: 9;" +
+                                "-fx-border-width: 10px;" +
+                                "-fx-border-color: white;" +
+                                "-fx-background-radius: 20;"
+                );
+
+                getChildren().addAll(computeDerivative, indexLabel, modifier);
+            }
         }
     }
 }
