@@ -134,7 +134,9 @@ public class FunctionsInputPane extends VBox {
             functionInput = new JFXTextField();
             functionInput.getStyleClass().add("function-input");
             functionInput.setStyle(
-                    "-fx-pref-width: 165px;"
+                    "-fx-pref-width: 165px;" +
+                            "-fx-font-style: oblique;" +
+                            "-jfx-focus-color: green;"
             );
 
             derivativeButton = new DerivativeButton();
@@ -142,7 +144,8 @@ public class FunctionsInputPane extends VBox {
             delete = new JFXButton("X");
             delete.getStyleClass().add("delete");
             delete.setStyle(
-                    "-fx-background-color: #bc0000;"
+                    "-fx-background-color: #bc0000;" +
+                            "-fx-font-weight: bold;"
             );
 
             getStyleClass().add("function-slot");
