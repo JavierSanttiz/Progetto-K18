@@ -12,8 +12,21 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Plotter root = new Plotter(new FunctionManager(), -5, 5, -5, 5);
 
-        FooMathFunction f = Math::sin;
-        root.plot(f);
+        // Jump not detected
+        //FooMathFunction f = x -> 0.5 * Math.abs(x) / x;
+        //root.plot(f);
+
+        // Jump detected
+        //FooMathFunction g = x -> Math.abs(x) / x;
+        //root.plot(g);
+
+        // Discontinuity detected
+        //FooMathFunction h = x -> 5 / (x);
+        //root.plot(h);
+
+        // Discontinuity detected
+        FooMathFunction k = x -> Math.pow(Math.sin(2 * x), x);
+        root.plot(k);
 
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("Plotter");

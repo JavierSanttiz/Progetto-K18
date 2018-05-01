@@ -32,7 +32,7 @@ public class Plotter extends StackPane {
     }
 
     public void plot(FooMathFunction f) {
-        cartesianPlane.addFunction(Math::sin);
+        cartesianPlane.addFunction(f);
         cartesianPlane.plot();
     }
 

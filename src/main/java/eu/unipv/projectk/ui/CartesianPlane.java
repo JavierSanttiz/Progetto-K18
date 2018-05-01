@@ -10,11 +10,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-import java.util.Objects;
-
 public class CartesianPlane extends Pane {
-    private static final int STD_NUMBER_DENSITY = 100;
+    private static final int STD_NUMBER_DENSITY = 250;
     private static final double STD_TICK_DENSITY = 10;
+    private static int DY_CHECK_TRESHOLD = 5;
 
     private final FunctionManager functionManager;
     private Group sheet;
@@ -74,22 +73,78 @@ public class CartesianPlane extends Pane {
         sheet.getChildren().add(circle);
     }
 
-    public void plot() {
-        for (FooMathFunction f : functionManager.getFunctions()) {
-            if (Objects.nonNull(f)) {
-                double step = (xAxis.getUpperBound() - yAxis.getLowerBound()) / minPointsDensity;
+    private void plot(FooMathFunction f, double[] points, Color color) {
+        if (points.length < 2) {
+            throw new AssertionError("At least 2 points");
+        }
 
+        for (int i = 0; i < points.length - 1; i++) {
+            plotSegment(points[i], f.apply(points[i]), points[i + 1], f.apply(points[i + 1]), color);
+        }
+
+    }
+
+    public void plot() {
+        double step = (xAxis.getUpperBound() - yAxis.getLowerBound()) / minPointsDensity;
+        double dy = Math.abs(Math.exp(step));
+
+        for (FooMathFunction f : functionManager.getFunctions()) {
+            if (f != null) {
                 double previousX = xAxis.getLowerBound();
                 double previousY = f.apply(previousX);
 
                 for (double x = previousX + step; x <= xAxis.getUpperBound(); x += step) {
-                    plotSegment(previousX, previousY, x, f.apply(x), Color.RED);
+                    if (dyCheck(f, new double[] {previousX, x}, dy)) {
+                        plotSegment(previousX, previousY, x, f.apply(x), Color.RED);
+                    } else {
+
+                        for (int i = 0; i < DY_CHECK_TRESHOLD; i++) {
+                            double[] midPoints = splitSegment(previousX, x, i + 2);
+
+                            if (dyCheck(f, midPoints, dy)) {
+                                // Probably not a discontinuity
+                                plot(f, midPoints, Color.RED);
+                                break;
+                            }
+
+                            // May be a discontinuity! Don't plot the segment
+                        }
+                    }
 
                     previousX = x;
                     previousY = f.apply(x);
                 }
             }
         }
+    }
+
+    private double[] splitSegment(double x0, double x1, int splits) {
+        if (x0 >= x1) {
+            throw new AssertionError("x0 should be less than x1");
+        }
+
+        double[] points = new double[splits];
+        double step = (x1 - x0) / splits;
+
+        for (int i = 0; i < splits; i++) {
+            points[i] = x0 + step * (i + 1);
+        }
+
+        return points;
+    }
+
+    private boolean dyCheck(FooMathFunction f, double[] points, double dy) {
+        double prevY = f.apply(points[0]);
+
+        for (int i = 1; i < points.length; i++) {
+            if (Math.abs(prevY - f.apply(points[i])) > dy) {
+                return false;
+            }
+
+            prevY = f.apply(points[i]);
+        }
+
+        return true;
     }
 
     private void plotSegment(double x0, double y0, double x1, double y1, Color color) {
