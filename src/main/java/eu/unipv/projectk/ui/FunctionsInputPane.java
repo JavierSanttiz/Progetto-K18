@@ -4,8 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -22,7 +24,17 @@ public class FunctionsInputPane extends VBox {
     public FunctionsInputPane() {
         inputPaneGraphicInit();
 
-        addFunction.setOnAction(e -> functions.getChildren().add(new FunctionSlot()));
+        addFunction.setOnAction(e -> {
+            Node last = functions.getChildren().get(0);
+
+            if (last instanceof FunctionSlot && !((FunctionSlot) last).functionInput.getText().equals("")) {
+                // last is a FunctionSlot and it's not empty! Add a new Slot
+                functions.getChildren().add(0, new FunctionSlot());
+            } else {
+                // Do Nothing
+            }
+
+        });
         hide.setOnAction(e -> {
             TranslateTransition t = new TranslateTransition(new Duration(250), this);
             t.setToX(-getMaxWidth());
@@ -114,6 +126,14 @@ public class FunctionsInputPane extends VBox {
         FunctionSlot() {
             slotGraphicInit();
 
+            functionInput.setOnKeyPressed(e -> {
+                if (e.getCode().equals(KeyCode.UP)) {
+                    derivativeButton.increment.fire();
+                } else if (e.getCode().equals(KeyCode.DOWN)) {
+                    derivativeButton.decrement.fire();
+                }
+            });
+
             delete.setOnAction(e -> {
                 if (functions.getChildren().size() == 1) {
                     // Do nothing
@@ -156,7 +176,8 @@ public class FunctionsInputPane extends VBox {
                             "-fx-spacing: 8px;" +
                             "-fx-border-style: solid;" +
                             "-fx-border-color: gray;" +
-                            "-fx-border-width: 0px 0px 1px 0px;"
+                            "-fx-border-width: 0px 0px 1px 0px;" +
+                            "-fx-background-color: white;"
             );
 
             getChildren().addAll(prompt, functionInput, derivativeButton, delete);
@@ -178,6 +199,17 @@ public class FunctionsInputPane extends VBox {
                         // Do Nothing
                     } else {
                         indexLabel.setText(String.valueOf(--index));
+                    }
+                });
+
+                computeDerivative.setOnKeyPressed(e -> {
+                    if (e.getCode().equals(KeyCode.ENTER)) {
+                        // TODO: implement derivative logic
+                        System.out.println("Computing derivative");
+                    } else if (e.getCode().equals(KeyCode.UP)) {
+                        increment.fire();
+                    } else if (e.getCode().equals(KeyCode.DOWN)) {
+                        decrement.fire();
                     }
                 });
             }
