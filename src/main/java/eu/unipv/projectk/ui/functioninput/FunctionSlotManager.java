@@ -85,7 +85,7 @@ class FunctionSlotManager extends VBox {
             setStyle(
                     "-fx-pref-height: 50px;" +
                             "-fx-alignment: center;" +
-                            "-fx-padding: 0 0 0 2;" +
+                            "-fx-padding: 0px 2px 0px 8px;" +
                             "-fx-spacing: 8px;" +
                             "-fx-border-style: solid;" +
                             "-fx-border-color: gray;" +
