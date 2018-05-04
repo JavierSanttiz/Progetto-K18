@@ -1,6 +1,5 @@
 package eu.unipv.projectk;
 
-import eu.unipv.projectk.functions.FooMathFunction;
 import eu.unipv.projectk.ui.Plotter;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,20 +12,15 @@ public class Main extends Application {
         Plotter root = new Plotter(new FunctionManager(), -5, 5, -5, 5);
 
         // Jump not detected
-        //FooMathFunction f = x -> 0.5 * Math.abs(x) / x;
-        //root.plot(f);
-
-        // Jump detected
-        //FooMathFunction g = x -> Math.abs(x) / x;
-        //root.plot(g);
+        //root.plot(x -> 4 * Math.abs(x) / x);
 
         // Discontinuity detected
-        //FooMathFunction h = x -> 5 / (x);
-        //root.plot(h);
+        //root.plot(x -> 1 / (x));
 
         // Discontinuity detected
-        FooMathFunction k = x -> Math.pow(Math.sin(2 * x), x);
-        root.plot(k);
+        //root.plot(x -> Math.pow(Math.sin(2 * x), x));
+
+        root.plot(x -> Math.tan(x));
 
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("Plotter");

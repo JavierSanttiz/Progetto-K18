@@ -11,9 +11,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 public class CartesianPlane extends Pane {
-    private static final int STD_NUMBER_DENSITY = 250;
+    private static final int STD_POINT_DENSITY = 200;
     private static final double STD_TICK_DENSITY = 10;
-    private static int DY_CHECK_TRESHOLD = 5;
+    private static int CHECK_TRESHOLD = 10;
+    private static double MAX_ANGLE = Math.atan(Double.MIN_VALUE);
 
     private final FunctionManager functionManager;
     private Group sheet;
@@ -22,13 +23,13 @@ public class CartesianPlane extends Pane {
     private final NumberAxis yAxis;
 
     private double axisTickDensity;
-    private int minPointsDensity;
+    private int pointDensity;
 
     public CartesianPlane(FunctionManager functionManager, double xLow, double xHi, double yLow, double yHi) {
-        this(functionManager, xLow, xHi, yLow, yHi, STD_TICK_DENSITY, STD_NUMBER_DENSITY);
+        this(functionManager, xLow, xHi, yLow, yHi, STD_TICK_DENSITY, STD_POINT_DENSITY);
     }
 
-    public CartesianPlane(FunctionManager functionManager, double xLow, double xHi, double yLow, double yHi, double axisTickDensity, int minPointsDensity) {
+    public CartesianPlane(FunctionManager functionManager, double xLow, double xHi, double yLow, double yHi, double axisTickDensity, int pointsDensity) {
         if ((xLow > xHi) || (yLow > yHi)) {
             throw new AssertionError("Low(s) must be less than Hi(s)");
         }
@@ -37,7 +38,7 @@ public class CartesianPlane extends Pane {
         sheet = new Group();
 
         this.axisTickDensity = axisTickDensity;
-        this.minPointsDensity = minPointsDensity;
+        this.pointDensity = pointsDensity;
 
         xAxis = new NumberAxis(xLow, xHi, (xHi - xLow) / this.axisTickDensity);
         xAxis.setSide(Side.BOTTOM);
@@ -60,7 +61,7 @@ public class CartesianPlane extends Pane {
     @Override
     public void resize(double v, double v1) {
         super.resize(v, v1);
-        refresh();
+        sheetRefresh();
     }
 
     public void addFunction(FooMathFunction f) {
@@ -73,20 +74,8 @@ public class CartesianPlane extends Pane {
         sheet.getChildren().add(circle);
     }
 
-    private void plot(FooMathFunction f, double[] points, Color color) {
-        if (points.length < 2) {
-            throw new AssertionError("At least 2 points");
-        }
-
-        for (int i = 0; i < points.length - 1; i++) {
-            plotSegment(points[i], f.apply(points[i]), points[i + 1], f.apply(points[i + 1]), color);
-        }
-
-    }
-
     public void plot() {
-        double step = (xAxis.getUpperBound() - yAxis.getLowerBound()) / minPointsDensity;
-        double dy = Math.abs(Math.exp(step));
+        double step = (Math.abs(xAxis.getUpperBound()) + Math.abs(xAxis.getLowerBound())) / pointDensity;
 
         for (FooMathFunction f : functionManager.getFunctions()) {
             if (f != null) {
@@ -94,14 +83,14 @@ public class CartesianPlane extends Pane {
                 double previousY = f.apply(previousX);
 
                 for (double x = previousX + step; x <= xAxis.getUpperBound(); x += step) {
-                    if (dyCheck(f, new double[] {previousX, x}, dy)) {
+                    if (!isVertical(previousX, previousY, x, f.apply(x))) {
                         plotSegment(previousX, previousY, x, f.apply(x), Color.RED);
                     } else {
 
-                        for (int i = 0; i < DY_CHECK_TRESHOLD; i++) {
+                        for (int i = 0; i < CHECK_TRESHOLD; i++) {
                             double[] midPoints = splitSegment(previousX, x, i + 2);
 
-                            if (dyCheck(f, midPoints, dy)) {
+                            if (!areVertical(f, midPoints)) {
                                 // Probably not a discontinuity
                                 plot(f, midPoints, Color.RED);
                                 break;
@@ -116,6 +105,17 @@ public class CartesianPlane extends Pane {
                 }
             }
         }
+    }
+
+    private void plot(FooMathFunction f, double[] points, Color color) {
+        if (points.length < 2) {
+            throw new AssertionError("At least 2 points");
+        }
+
+        for (int i = 0; i < points.length - 1; i++) {
+            plotSegment(points[i], f.apply(points[i]), points[i + 1], f.apply(points[i + 1]), color);
+        }
+
     }
 
     private double[] splitSegment(double x0, double x1, int splits) {
@@ -133,26 +133,39 @@ public class CartesianPlane extends Pane {
         return points;
     }
 
-    private boolean dyCheck(FooMathFunction f, double[] points, double dy) {
-        double prevY = f.apply(points[0]);
-
-        for (int i = 1; i < points.length; i++) {
-            if (Math.abs(prevY - f.apply(points[i])) > dy) {
-                return false;
-            }
-
-            prevY = f.apply(points[i]);
-        }
-
-        return true;
-    }
-
     private void plotSegment(double x0, double y0, double x1, double y1, Color color) {
         Line line = new Line(mapToPaneX(x0), mapToPaneY(y0), mapToPaneX(x1), mapToPaneY(y1));
         line.setStrokeWidth(2);
         line.setStroke(color);
-
         sheet.getChildren().add(line);
+    }
+
+    private boolean isVertical(double x0, double y0, double x1, double y1) {
+        if (y0 == y1)
+            return false;
+
+        double angle = Math.abs(Math.atan((y1 - y0) / (x1 - x0)));
+
+        // TODO: find a suitable proportional rule for angle offset
+        double step = Math.abs(x1 - x0);
+        double angleOffset = (step < 1? 1 / Math.pow(step, 2): Math.pow(step, 3));
+        return !(MAX_ANGLE <= angle) || !(angle <= Math.atan(angleOffset));
+    }
+
+    private boolean areVertical(FooMathFunction f, double[] points) {
+        double prevX = points[0];
+        double prevY = f.apply(prevX);
+
+        for (int i = 1; i < points.length; i++) {
+            if (isVertical(prevX, prevY, points[i], f.apply(points[i]))) {
+                return true;
+            }
+
+            prevX = points[i];
+            prevY = f.apply(prevX);
+        }
+
+        return false;
     }
 
     private double mapToPaneX(double cartesianX) {
@@ -183,7 +196,7 @@ public class CartesianPlane extends Pane {
         return axis.getUpperBound() - axis.getLowerBound();
     }
 
-    private void refresh() {
+    private void sheetRefresh() {
         sheet.getChildren().clear();
         plot();
     }
